@@ -17,6 +17,12 @@ jobs:
         with:
           node-version: 18
 
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
       - name: Install dependencies
         run: npm install
 
@@ -24,8 +30,7 @@ jobs:
         run: npm install @capacitor/core @capacitor/cli
 
       - name: Init Capacitor
-        run: |
-          npx cap init finance-app com.finance.app --web-dir=www
+        run: npx cap init finance-app com.finance.app --web-dir=www
 
       - name: Add Android
         run: npx cap add android
