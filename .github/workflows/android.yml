@@ -9,7 +9,8 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout
+        uses: actions/checkout@v4
 
       - name: Setup Node
         uses: actions/setup-node@v4
@@ -19,22 +20,21 @@ jobs:
       - name: Install Bubblewrap
         run: npm install -g @bubblewrap/cli
 
-      - name: Init TWA
+      - name: Init TWA (Non-interactive)
         run: |
-
-npx bubblewrap init \
-  --manifest=https://finance-manager-pro-1--mohamedmagedpro.replit.app/manifest.json \
-  --directory=twa \
-  --packageId=com.finance.app \
-  --host=finance-manager-pro-1--mohamedmagedpro.replit.app \
-  --name="Finance Manager" \
-  --launcherName="Finance Manager" \
-  --display=standalone \
-  --themeColor=#000000 \
-  --backgroundColor=#000000 \
-  --navigationColor=#000000 \
-  --navigationColorDark=#000000 \
-  --orientation=portrait
+          npx bubblewrap init \
+            --manifest=https://finance-manager-pro-1--mohamedmagedpro.replit.app/manifest.json \
+            --directory=twa \
+            --packageId=com.finance.app \
+            --host=finance-manager-pro-1--mohamedmagedpro.replit.app \
+            --name="Finance Manager" \
+            --launcherName="Finance Manager" \
+            --display=standalone \
+            --themeColor=#000000 \
+            --backgroundColor=#000000 \
+            --navigationColor=#000000 \
+            --navigationColorDark=#000000 \
+            --orientation=portrait
 
       - name: Build APK
         run: |
