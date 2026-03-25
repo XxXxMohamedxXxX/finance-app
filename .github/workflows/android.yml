@@ -9,42 +9,27 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: 18
 
-      - name: Setup Java
-        uses: actions/setup-java@v4
-        with:
-          distribution: 'temurin'
-          java-version: '17'
+      - name: Install Bubblewrap
+        run: npm install -g @bubblewrap/cli
 
-      - name: Install dependencies
-        run: npm install
-
-      - name: Install Capacitor
-        run: npm install @capacitor/core @capacitor/cli
-
-      - name: Init Capacitor
-        run: npx cap init finance-app com.finance.app --web-dir=www
-
-      - name: Add Android
-        run: npx cap add android
-
-      - name: Sync
-        run: npx cap sync android
+      - name: Init TWA
+        run: |
+          npx bubblewrap init --manifest=https://finance-manager-pro-1--mohamedmagedpro.replit.app/manifest.json
 
       - name: Build APK
         run: |
-          cd android
-          ./gradlew assembleDebug
+          cd twa
+          ./gradlew assembleRelease
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
           name: apk
-          path: android/app/build/outputs/apk/debug/app-debug.apk
+          path: twa/app/build/outputs/apk/release/app-release.apk
